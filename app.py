@@ -38,5 +38,77 @@ with open('results.txt', 'r') as file:
         # Add to dictionary with the key stripped of extra spaces
         LLM_Dict[key.strip()] = values_list
 
-# Now LLM_Dict contains all keys and their corresponding lists as values
-print(LLM_Dict)
+def menu():
+    while True:  # This starts an infinite loop that will keep asking the user for input until a valid one is given
+        print("What would you like to view?")
+        print("1. Get overall results")
+        print("2. Option 2")
+        print("3. Option 3")
+        print("4. Option 4")
+        print("5. Option 5")
+        print("-1. Exit")
+
+        selection = input("Please enter your choice (1-5): ")
+
+        # Check if the input is a digit and within the range 1-5
+        if selection == "-1":
+            print("Exiting the menu.")
+            return None  # Return None or you could use another specific value to indicate the exit
+        if selection.isdigit() and 1 <= int(selection) <= 5:
+            return int(selection)  # Return the integer value of selection
+        else:
+            print("Invalid input. Please enter a number between 1 and 5.")
+        
+
+
+
+def runMenu():
+    userChoice = menu()
+
+    if userChoice is None:
+        print("You chose to exit the menu.")
+        return  # Exit the runMenu function
+
+    if userChoice == 1:
+        getPercentResults()
+        runMenu()
+    elif userChoice == 2:
+        # Another function call for option 2
+        print("Option 2 selected.")  # Placeholder
+        runMenu()
+    elif userChoice == 3:
+        # Another function call for option 3
+        print("Option 3 selected.")  # Placeholder
+        runMenu()
+    elif userChoice == 4:
+        # Another function call for option 4
+        print("Option 4 selected.")  # Placeholder
+        runMenu()
+    elif userChoice == 5:
+        # Another function call for option 5
+        print("Option 5 selected.")  # Placeholder
+        runMenu()
+
+
+def getPercentResults():
+    for key, values in LLM_Dict.items():
+        print(f"LLM Model: {key}")
+        numberHuman = 0
+        numberMachine = 0
+        for index, value in enumerate(values, start=1):
+            # print(f"  {index}. {value}")
+            if "human" in value:
+                numberHuman += 1
+            if "machine" in value:
+                numberMachine += 1
+            
+        print(f"Number of times Grover thinks a human wrote the article: {numberHuman}")
+        print(f"Number of times Grover thinks a machine wrote the article: {numberMachine}")
+        print(f"success rate: {numberMachine/10*100}%")
+
+
+        print()  # Adds a blank line for better separation between entries
+# Usage
+# user_choice = menu()
+# print(f"You selected option {user_choice}.")
+runMenu()
