@@ -19,6 +19,7 @@
 
 # Instantiate empty dictionary
 LLM_Dict = {}
+Articles_Dict = {}
 
 # Open the file and read line by line
 with open('results.txt', 'r') as file:
@@ -112,4 +113,8 @@ def getPercentResults():
 # user_choice = menu()
 # print(f"You selected option {user_choice}.")
 # commit comment testing
+def getArticleResults():
+    for key, values in Articles_Dict.items():
+        print(f"Article: {key}")
+        numberHuman = 0
 runMenu()
