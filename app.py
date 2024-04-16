@@ -19,6 +19,7 @@
 
 # Instantiate empty dictionary
 LLM_Dict = {}
+Articles_Dict = []
 
 # Open the file and read line by line
 with open('results.txt', 'r') as file:
@@ -42,7 +43,7 @@ def menu():
     while True:  # This starts an infinite loop that will keep asking the user for input until a valid one is given
         print("What would you like to view?")
         print("1. Get overall results")
-        print("2. Option 2")
+        print("2. Get results by Article")
         print("3. Option 3")
         print("4. Option 4")
         print("5. Option 5")
@@ -74,7 +75,7 @@ def runMenu():
         runMenu()
     elif userChoice == 2:
         # Another function call for option 2
-        print("Option 2 selected.")  # Placeholder
+        getArticleResults()
         runMenu()
     elif userChoice == 3:
         # Another function call for option 3
@@ -112,4 +113,32 @@ def getPercentResults():
 # user_choice = menu()
 # print(f"You selected option {user_choice}.")
 # commit comment testing
+def getArticleResults():
+    with open('articleResults.txt', 'r') as file:
+        for line in file:
+            # Strip newline character and split by comma
+            parts = line.strip().split(', ')
+            
+            # Assuming the first part is the title and the rest are the results
+            title = parts[0]
+            results = parts[1:]
+            
+            # Append to the list as a dictionary
+            Articles_Dict.append({
+                'Title': title,
+                'Results': results
+                }
+            )
+    def display_table(articles):
+        # Print the header
+        print(f"{'Title':<70}{'GPT-4':<10}{'Gemini':<10}{'Jurrasic':<10}{'Claude':<10}{'Coral':<10}")
+        print("-" * 130)  # Print a line for separation
+
+        # Print each article's results
+        for article in articles:
+            # Ensure all result fields are filled, if not fill them with 'N/A'
+            results = [res if res else 'N/A' for res in article['Results']]
+            print(f"{article['Title'][:77]:<70}{results[0]:<10}{results[1]:<10}{results[2]:<10}{results[3]:<10}{results[4]:<10}")
+    display_table(Articles_Dict)
+    
 runMenu()
