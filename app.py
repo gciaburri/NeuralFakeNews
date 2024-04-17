@@ -20,6 +20,7 @@
 # Instantiate empty dictionary
 LLM_Dict = {}
 Articles_Dict = []
+NUM_ARTICLES = 10
 
 # Open the file and read line by line
 with open('results.txt', 'r') as file:
@@ -44,7 +45,7 @@ def menu():
         print("What would you like to view?")
         print("1. Get overall results")
         print("2. Get results by Article")
-        print("3. Option 3")
+        print("3. Get rankings")
         print("4. Option 4")
         print("5. Option 5")
         print("-1. Exit")
@@ -60,8 +61,6 @@ def menu():
         else:
             print("Invalid input. Please enter a number between 1 and 5.")
         
-
-
 
 def runMenu():
     userChoice = menu()
@@ -79,7 +78,8 @@ def runMenu():
         runMenu()
     elif userChoice == 3:
         # Another function call for option 3
-        print("Option 3 selected.")  # Placeholder
+        # print("Option 3 selected.")  # Placeholder
+        getRankings()
         runMenu()
     elif userChoice == 4:
         # Another function call for option 4
@@ -102,13 +102,48 @@ def getPercentResults():
                 numberHuman += 1
             if "machine" in value:
                 numberMachine += 1
-            
         print(f"Number of times Grover thinks a human wrote the article: {numberHuman}")
         print(f"Number of times Grover thinks a machine wrote the article: {numberMachine}")
-        print(f"success rate: {numberMachine/10*100}%")
+        print(f"success rate: {numberHuman/NUM_ARTICLES*100}%")
 
 
         print()  # Adds a blank line for better separation between entries
+
+def getRankings():
+    # Initialize an empty list to store (LLM, ratio) tuples
+    LLM_ratios = []
+
+    for key, values in LLM_Dict.items():
+        numberHuman = 0
+        numberMachine = 0
+        for value in values:
+            if "human" in value:
+                numberHuman += 1
+            if "machine" in value:
+                numberMachine += 1
+
+        # To avoid division by zero, check if numberHuman is not zero
+        if numberHuman > 0:
+            ratio = numberHuman / NUM_ARTICLES
+        else:
+            # Handle the case where numberHuman is 0; you might assign a default value
+            # such as 0 or skip adding this LLM to the list.
+            ratio = 0  # or continue to skip this entry
+
+        # Append the (LLM, ratio) tuple to the list
+        # print("human count, machine count ", numberHuman, numberMachine)
+        LLM_ratios.append((key, ratio))
+
+    # Sort the list by the ratio in ascending order
+    LLM_ratios.sort(key=lambda x: x[1], reverse=True)
+
+    # Print the sorted results
+    print("LLM Rankings by Human Response to number of Articles Ratio:")
+    for LLM, ratio in LLM_ratios:
+        print(f"{LLM}: Ratio = {ratio:.2f}")
+
+
+
 # Usage
 # user_choice = menu()
 # print(f"You selected option {user_choice}.")
@@ -140,5 +175,6 @@ def getArticleResults():
             results = [res if res else 'N/A' for res in article['Results']]
             print(f"{article['Title'][:77]:<70}{results[0]:<10}{results[1]:<10}{results[2]:<10}{results[3]:<10}{results[4]:<10}")
     display_table(Articles_Dict)
-    
+
+
 runMenu()
