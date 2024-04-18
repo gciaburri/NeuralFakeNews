@@ -1,23 +1,4 @@
-# Need: Filereader, LLM Hashmaps, Algorithm to process data in
-# hashmap, and a way to display the data.
-
-# instantiate a data structure that will house the data to be able to query it
-# could use a dictionary (hash map, python calls it dictionary)
-
-# example1: storing with articles as a key, followed by if each 
-# grover thought it was a machine generated code for each LLM
-
-# article 1 : yes, yes, no, no, yes, 500 words 
-# article 2 : no, yes, yes, yes, no, 870 words
-# article 3 : yes, no, yes, yes, yes, 400 words
-
-# example2: storing with LLMs as key 
-
-# ChatGPT4 : yes, yes, no, yes, no
-# Claude : no, yes, yes, no, no
-# Jurassic : no, no, no, yes, yes
-
-# Instantiate empty dictionary
+# Instantiate empty dictionaries and constants
 LLM_Dict = {}
 Articles_Dict = []
 NUM_ARTICLES = 10
@@ -46,11 +27,10 @@ def menu():
         print("1. Get overall results")
         print("2. Get results by Article")
         print("3. Get rankings")
-        print("4. Option 4")
-        print("5. Option 5")
         print("-1. Exit")
 
         selection = input("Please enter your choice (1-5): ")
+        print()
 
         # Check if the input is a digit and within the range 1-5
         if selection == "-1":
@@ -70,24 +50,18 @@ def runMenu():
         return  # Exit the runMenu function
 
     if userChoice == 1:
+        print()
         getPercentResults()
         runMenu()
     elif userChoice == 2:
         # Another function call for option 2
+        print()
         getArticleResults()
         runMenu()
     elif userChoice == 3:
         # Another function call for option 3
-        # print("Option 3 selected.")  # Placeholder
+        print()
         getRankings()
-        runMenu()
-    elif userChoice == 4:
-        # Another function call for option 4
-        print("Option 4 selected.")  # Placeholder
-        runMenu()
-    elif userChoice == 5:
-        # Another function call for option 5
-        print("Option 5 selected.")  # Placeholder
         runMenu()
 
 
@@ -131,7 +105,6 @@ def getRankings():
             ratio = 0  # or continue to skip this entry
 
         # Append the (LLM, ratio) tuple to the list
-        # print("human count, machine count ", numberHuman, numberMachine)
         LLM_ratios.append((key, ratio))
 
     # Sort the list by the ratio in ascending order
@@ -141,6 +114,7 @@ def getRankings():
     print("LLM Rankings by Human Response to number of Articles Ratio:")
     for LLM, ratio in LLM_ratios:
         print(f"{LLM}: Ratio = {ratio:.2f}")
+    print()
 
 
 
@@ -174,6 +148,7 @@ def getArticleResults():
             # Ensure all result fields are filled, if not fill them with 'N/A'
             results = [res if res else 'N/A' for res in article['Results']]
             print(f"{article['Title'][:77]:<70}{results[0]:<10}{results[1]:<10}{results[2]:<10}{results[3]:<10}{results[4]:<10}")
+        print()
     display_table(Articles_Dict)
 
 
