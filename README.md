@@ -4,7 +4,7 @@ Group 12: Haley Snyder, Gabriel Ciaburri, Noemy Cervantes, Kaylie Batey, Nestor 
 Clone NeuralFakeNews in terminal, cd into NeuralFakeNews, run app.py 
 
 # What the code does: 
-app.py displays the data (stored in articleResults) we obtained by inverting several articles through different LLMs and passing the inversions through Grover. We tested Grover to see if it could detect the AI inverted articles, and then we compared the LLMs looking to see which Grover performed best against. The code gives the user a few different options for displaying these results 
+app.py displays the data (stored in articleResults.txt and results.txt) we obtained by inverting several articles through different LLMs and passing the inversions through Grover. We tested Grover to see if it could detect the AI inverted articles, and then we compared the LLMs looking to see which Grover performed best against. The code gives the user a few different options for displaying these results 
 
 #Archaeologist:
 Deep contextualized word representations
