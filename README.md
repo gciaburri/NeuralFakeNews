@@ -6,6 +6,8 @@ Clone NeuralFakeNews in terminal, cd into NeuralFakeNews, run app.py
 # What the code does: 
 app.py displays the data (stored in articleResults.txt and results.txt) we obtained by inverting several articles through different LLMs and passing the inversions through Grover. We tested Grover to see if it could detect the AI inverted articles, and then we compared the LLMs looking to see which Grover performed best against. The code gives the user a few different options for displaying these results 
 
+<img width="245" alt="Screenshot 2024-04-17 at 9 13 57 PM" src="https://github.com/gciaburri/NeuralFakeNews/assets/68760828/b2acac66-2981-4dac-8973-cc2f9c34aad6">
+
 # Archaeologist:
 Deep contextualized word representations
 Matthew Peters, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, and
